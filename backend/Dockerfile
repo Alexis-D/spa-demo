@@ -1,4 +1,4 @@
-FROM astral/uv:python3.12-alpine
+FROM astral/uv:python3.13-alpine
 
 WORKDIR /src
 COPY pyproject.toml main.py uv.lock .
