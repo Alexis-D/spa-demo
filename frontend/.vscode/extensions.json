@@ -1,6 +1,4 @@
 {
-  // List of extensions which should be recommended for users of this workspace.
   "recommendations": ["biomejs.biome"],
-  // List of extensions recommended by VSCodium that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
 }
