@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4444:80"
+    volumes:
+      - type: bind
+        source: nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+    networks:
+      - public
+      - internal
+
+  api:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    networks:
+      - internal
+
+networks:
+  public:
+  internal:
+    internal: true
