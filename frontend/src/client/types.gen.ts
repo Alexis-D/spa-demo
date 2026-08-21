@@ -5,6 +5,16 @@ export type ClientOptions = {
 };
 
 /**
+ * ErrorDetails
+ */
+export type ErrorDetails = {
+    /**
+     * Details
+     */
+    details: string;
+};
+
+/**
  * HTTPValidationError
  */
 export type HttpValidationError = {
@@ -68,62 +78,41 @@ export type HelloResponses = {
 
 export type HelloResponse = HelloResponses[keyof HelloResponses];
 
-export type EchoData = {
+export type RepeatData = {
     body?: never;
     path: {
+        /**
+         * Count
+         */
+        count: number;
+    };
+    query: {
         /**
          * Text
          */
         text: string;
     };
-    query?: never;
-    url: '/echo/{text}';
+    url: '/repeat/{count}';
 };
 
-export type EchoErrors = {
+export type RepeatErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorDetails;
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type EchoError = EchoErrors[keyof EchoErrors];
+export type RepeatError = RepeatErrors[keyof RepeatErrors];
 
-export type EchoResponses = {
+export type RepeatResponses = {
     /**
      * Successful Response
      */
     200: Item;
 };
 
-export type EchoResponse = EchoResponses[keyof EchoResponses];
-
-export type UpData = {
-    body?: never;
-    path: {
-        /**
-         * Text
-         */
-        text: string;
-    };
-    query?: never;
-    url: '/upupup/{text}';
-};
-
-export type UpErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpError = UpErrors[keyof UpErrors];
-
-export type UpResponses = {
-    /**
-     * Successful Response
-     */
-    200: Item;
-};
-
-export type UpResponse = UpResponses[keyof UpResponses];
+export type RepeatResponse = RepeatResponses[keyof RepeatResponses];

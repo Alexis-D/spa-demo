@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { EchoData, EchoErrors, EchoResponses, HelloData, HelloResponses, UpData, UpErrors, UpResponses } from './types.gen';
+import type { HelloData, HelloResponses, RepeatData, RepeatErrors, RepeatResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -26,9 +26,4 @@ export const hello = <ThrowOnError extends boolean = false>(options?: Options<He
 /**
  * Echo
  */
-export const echo = <ThrowOnError extends boolean = false>(options: Options<EchoData, ThrowOnError>): RequestResult<EchoResponses, EchoErrors, ThrowOnError> => (options.client ?? client).get<EchoResponses, EchoErrors, ThrowOnError>({ url: '/echo/{text}', ...options });
-
-/**
- * Echo
- */
-export const up = <ThrowOnError extends boolean = false>(options: Options<UpData, ThrowOnError>): RequestResult<UpResponses, UpErrors, ThrowOnError> => (options.client ?? client).get<UpResponses, UpErrors, ThrowOnError>({ url: '/upupup/{text}', ...options });
+export const repeat = <ThrowOnError extends boolean = false>(options: Options<RepeatData, ThrowOnError>): RequestResult<RepeatResponses, RepeatErrors, ThrowOnError> => (options.client ?? client).get<RepeatResponses, RepeatErrors, ThrowOnError>({ url: '/repeat/{count}', ...options });

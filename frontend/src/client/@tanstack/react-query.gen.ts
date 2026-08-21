@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { echo, hello, type Options, up } from '../sdk.gen';
-import type { EchoData, EchoError, EchoResponse, HelloData, HelloResponse, UpData, UpError, UpResponse } from '../types.gen';
+import { hello, type Options, repeat } from '../sdk.gen';
+import type { HelloData, HelloResponse, RepeatData, RepeatError, RepeatResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -57,14 +57,14 @@ export const helloOptions = (options?: Options<HelloData>) => queryOptions<Hello
     queryKey: helloQueryKey(options)
 });
 
-export const echoQueryKey = (options: Options<EchoData>) => createQueryKey('echo', options);
+export const repeatQueryKey = (options: Options<RepeatData>) => createQueryKey('repeat', options);
 
 /**
  * Echo
  */
-export const echoOptions = (options: Options<EchoData>) => queryOptions<EchoResponse, EchoError, EchoResponse, ReturnType<typeof echoQueryKey>>({
+export const repeatOptions = (options: Options<RepeatData>) => queryOptions<RepeatResponse, RepeatError, RepeatResponse, ReturnType<typeof repeatQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await echo({
+        const { data } = await repeat({
             ...options,
             ...queryKey[0],
             signal,
@@ -72,23 +72,5 @@ export const echoOptions = (options: Options<EchoData>) => queryOptions<EchoResp
         });
         return data;
     },
-    queryKey: echoQueryKey(options)
-});
-
-export const upQueryKey = (options: Options<UpData>) => createQueryKey('up', options);
-
-/**
- * Echo
- */
-export const upOptions = (options: Options<UpData>) => queryOptions<UpResponse, UpError, UpResponse, ReturnType<typeof upQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await up({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: upQueryKey(options)
+    queryKey: repeatQueryKey(options)
 });
